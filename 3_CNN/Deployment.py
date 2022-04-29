@@ -131,6 +131,8 @@ with header:
 
     X_new = pd.DataFrame(cancer_dataset, columns=columns)
 
+    st.write(X_new.describe())
+
     x_train, x_test, y_train, y_test = train_test_split(X_new, Y_k, test_size = 0.2, random_state = 3, stratify=Y_k)
 
     scaler = StandardScaler()
@@ -187,19 +189,144 @@ with header:
     col1, col2 = st.columns(2)
 
     radius_mean = col1.text_input('Radius Mean')
+    try:
+        if float(radius_mean) in range(6.9810, 28.1100):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     texture_mean = col1.text_input('Texture Mean')
+    try:
+        if float(texture_mean) in range(9.7100, 39.2800):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     perimeter_mean = col1.text_input('Perimeter Mean')
+    try:
+        if float(perimeter_mean) in range(43.7900, 188.5000):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     area_mean = col1.text_input('Area Mean')
+    try:
+        if float(area_mean) in range(143.5000, 2,501.0000):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     concavity_mean = col1.text_input('Concavity Mean')
+    try:
+        if float(concavity_mean) in range(0.0000, 0.4268):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     radius_se = col1.text_input('Radius Se')
+    try:
+        if float(radius_se) in range(0.1115, 2.8730):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     perimeter_se = col1.text_input('Perimeter Se')
+    try:
+        if float(perimeter_se) in range(0.7570, 21.9800):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     area_se = col2.text_input('Area Se')
+    try:
+        if float(area_se) in range(6.8020, 542.2000):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     radius_worst = col2.text_input('Radius Worst')
+    try:
+        if float(radius_worst) in range(7.9300, 36.0400):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     texture_worst = col2.text_input('Texture Worts')
+    try:
+        if float(texture_worst) in range(12.0200, 49.5400):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     perimeter_worst = col2.text_input('Perimeter worst')
+    try:
+        if float(perimeter_worst) in range(50.4100, 251.2000):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     area_worst = col2.text_input('Area Wrost')
+    try:
+        if float(area_worst) in range(185.2000, 4254.0000):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     compactness_worst = col2.text_input('Compactness Wrost')
+    try:
+        if float(compactness_worst) in range(0.0273, 1.0580):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
+
     concavity_worst = col2.text_input('Concavity Worst')
+    try:
+        if float(concavity_worst) in range(0.0000, 1.2520):
+            pass
+        else:
+            col1.error("Not in range")
+    except ValueError:
+        pass
+
 
     # code for prediction
     diagnosis = ''
