@@ -20,6 +20,17 @@ from tensorflow.keras.layers import Flatten, Dense, Dropout, BatchNormalization
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.optimizers import Adam
 
+
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+
 header = st.container()
 
 st.markdown(
@@ -190,7 +201,7 @@ with header:
 
     radius_mean = col1.text_input('Radius Mean')
     try:
-        if float(radius_mean) in range(6.9810, 28.1100):
+        if 6.9810 <= float(radius_mean) <= 28.1100:
             pass
         else:
             col1.error("Not in range")
@@ -200,7 +211,7 @@ with header:
 
     texture_mean = col1.text_input('Texture Mean')
     try:
-        if float(texture_mean) in range(9.7100, 39.2800):
+        if 9.7100 <= float(texture_mean) <= 39.2800:
             pass
         else:
             col1.error("Not in range")
@@ -210,7 +221,7 @@ with header:
 
     perimeter_mean = col1.text_input('Perimeter Mean')
     try:
-        if float(perimeter_mean) in range(43.7900, 188.5000):
+        if 43.7900 <= float(perimeter_mean) <= 188.5000:
             pass
         else:
             col1.error("Not in range")
@@ -220,7 +231,7 @@ with header:
 
     area_mean = col1.text_input('Area Mean')
     try:
-        if float(area_mean) in range(143.5000, 2,501.0000):
+        if 143.5000 <= float(area_mean) <= 2501.0000:
             pass
         else:
             col1.error("Not in range")
@@ -230,7 +241,7 @@ with header:
 
     concavity_mean = col1.text_input('Concavity Mean')
     try:
-        if float(concavity_mean) in range(0.0000, 0.4268):
+        if 0.0000 <= float(concavity_mean) <= 0.4268:
             pass
         else:
             col1.error("Not in range")
@@ -240,7 +251,7 @@ with header:
 
     radius_se = col1.text_input('Radius Se')
     try:
-        if float(radius_se) in range(0.1115, 2.8730):
+        if 0.1115 <= float(radius_se) <= 2.8730:
             pass
         else:
             col1.error("Not in range")
@@ -250,7 +261,7 @@ with header:
 
     perimeter_se = col1.text_input('Perimeter Se')
     try:
-        if float(perimeter_se) in range(0.7570, 21.9800):
+        if 0.7570 <= float(perimeter_se) <= 21.9800:
             pass
         else:
             col1.error("Not in range")
@@ -260,7 +271,7 @@ with header:
 
     area_se = col2.text_input('Area Se')
     try:
-        if float(area_se) in range(6.8020, 542.2000):
+        if 6.8020 <= float(area_se) <= 542.2000:
             pass
         else:
             col1.error("Not in range")
@@ -270,7 +281,7 @@ with header:
 
     radius_worst = col2.text_input('Radius Worst')
     try:
-        if float(radius_worst) in range(7.9300, 36.0400):
+        if 7.9300 <= float(radius_worst) <= 36.0400:
             pass
         else:
             col1.error("Not in range")
@@ -280,7 +291,7 @@ with header:
 
     texture_worst = col2.text_input('Texture Worts')
     try:
-        if float(texture_worst) in range(12.0200, 49.5400):
+        if 12.0200 <= float(texture_worst) <= 49.5400:
             pass
         else:
             col1.error("Not in range")
@@ -290,7 +301,7 @@ with header:
 
     perimeter_worst = col2.text_input('Perimeter worst')
     try:
-        if float(perimeter_worst) in range(50.4100, 251.2000):
+        if 50.4100 <= float(perimeter_worst) <= 251.2000:
             pass
         else:
             col1.error("Not in range")
@@ -300,7 +311,7 @@ with header:
 
     area_worst = col2.text_input('Area Wrost')
     try:
-        if float(area_worst) in range(185.2000, 4254.0000):
+        if 185.2000 <= float(area_worst) <= 4254.0000:
             pass
         else:
             col1.error("Not in range")
@@ -310,7 +321,7 @@ with header:
 
     compactness_worst = col2.text_input('Compactness Wrost')
     try:
-        if float(compactness_worst) in range(0.0273, 1.0580):
+        if 0.0273 <= float(compactness_worst) <= 1.0580:
             pass
         else:
             col1.error("Not in range")
@@ -320,7 +331,7 @@ with header:
 
     concavity_worst = col2.text_input('Concavity Worst')
     try:
-        if float(concavity_worst) in range(0.0000, 1.2520):
+        if 0.0000 <= float(concavity_worst) <= 1.2520:
             pass
         else:
             col1.error("Not in range")
@@ -333,23 +344,27 @@ with header:
 
     # creating a button for prediction
 
-    if st.button('Result'):
+    try:
+        if st.button('Result'):
 
-        input_data = (radius_mean, texture_mean, perimeter_mean, area_mean, concavity_mean, radius_se, perimeter_se, area_se, radius_worst, texture_worst, perimeter_worst, area_worst, compactness_worst, concavity_worst)
+            input_data = (radius_mean, texture_mean, perimeter_mean, area_mean, concavity_mean, radius_se, perimeter_se, area_se, radius_worst, texture_worst, perimeter_worst, area_worst, compactness_worst, concavity_worst)
 
-        input_data_as_numpy_array = np.asarray(input_data)
+            input_data_as_numpy_array = np.asarray(input_data)
 
-        input_data_reshape = input_data_as_numpy_array.reshape(1, -1)
+            input_data_reshape = input_data_as_numpy_array.reshape(1, -1)
 
-        std_data = scaler.transform(input_data_reshape)
+            std_data = scaler.transform(input_data_reshape)
 
-        prediction = model.predict(std_data)
+            prediction = model.predict(std_data)
 
-        if prediction[0]<=0.5:
-            diagnosis = 'Benign'
-        else:
-            diagnosis = 'Malignant'
+            if prediction[0]<=0.5:
+                diagnosis = 'Benign'
+            else:
+                diagnosis = 'Malignant'
 
-    st.success(diagnosis)
+        st.success(diagnosis)
+    
+    except ValueError:
+        st.error("Cells Should not be empty")
 
 
