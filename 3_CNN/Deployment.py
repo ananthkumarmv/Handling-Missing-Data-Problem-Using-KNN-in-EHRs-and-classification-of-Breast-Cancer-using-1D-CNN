@@ -344,27 +344,27 @@ with header:
 
     # creating a button for prediction
 
-    try:
-        if st.button('Result'):
+   # try:
+    if st.button('Result'):
 
-            input_data = (radius_mean, texture_mean, perimeter_mean, area_mean, concavity_mean, radius_se, perimeter_se, area_se, radius_worst, texture_worst, perimeter_worst, area_worst, compactness_worst, concavity_worst)
+        input_data = (radius_mean, texture_mean, perimeter_mean, area_mean, concavity_mean, radius_se, perimeter_se, area_se, radius_worst, texture_worst, perimeter_worst, area_worst, compactness_worst, concavity_worst)
 
-            input_data_as_numpy_array = np.asarray(input_data)
+        input_data_as_numpy_array = np.asarray(input_data)
 
-            input_data_reshape = input_data_as_numpy_array.reshape(1, -1)
+        input_data_reshape = input_data_as_numpy_array.reshape(1, -1)
 
-            std_data = scaler.transform(input_data_reshape)
+        std_data = scaler.transform(input_data_reshape)
 
-            prediction = model.predict(std_data)
+        prediction = model.predict(std_data)
 
-            if prediction[0]<=0.5:
-                diagnosis = 'Benign'
-            else:
-                diagnosis = 'Malignant'
+        if prediction[0]<=0.5:
+            diagnosis = 'Benign'
+        else:
+            diagnosis = 'Malignant'
 
-        st.success(diagnosis)
+    st.success(diagnosis)
     
-    except ValueError:
-        st.error("Cells Should not be empty")
+ #   except ValueError:
+    #    st.error("Cells Should not be empty")
 
 
