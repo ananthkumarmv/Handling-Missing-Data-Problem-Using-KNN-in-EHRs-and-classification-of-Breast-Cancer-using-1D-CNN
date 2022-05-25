@@ -7,9 +7,13 @@ Created on Sun May  1 15:08:52 2022
 
 import numpy as np
 import streamlit as st
+import streamlit.components.v1 as components
 from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
 import pandas as pd
+
+# st.set_page_config(page_title="Breast Cancer Prediction", layout="wide")
+st.set_page_config(page_title="Breast Cancer Prediction")
 
 hide_st_style = """
             <style>
@@ -19,6 +23,99 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
+# state = _get_state()
+
+# state.page_config = st.set_page_config(
+#     page_title="BPJV SI Database Manager test",
+#     layout="wide",
+#     initial_sidebar_state="expanded",
+# )
+
+components.html(
+    """
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+nav {
+overflow: hidden;
+background-color: #330b7c;
+padding: 10px;
+}
+.links {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-weight: bold;
+float: left;
+color:white;
+text-align: center;
+padding: 12px;
+text-decoration: none;
+font-size: 18px;
+line-height: 25px;
+border-radius: 4px;
+}
+nav .logo {
+font-size: 25px;
+font-weight: bold;
+}
+nav .links:hover {
+background-color: rgb(214, 238, 77);
+color: rgb(42, 10, 94);
+}
+nav .selected {
+background-color: dodgerblue;
+color: white;
+}
+.rightSection {
+float: right;
+}
+@media screen and (max-width: 870px) {
+nav .links {
+float: none;
+display: block;
+text-align: left;
+}
+.rightSection {
+float: none;
+}
+}
+</style>
+</head>
+<body>
+<nav>
+<a class="links logo" href="Image/cancer.png">Breast Cancer Tumor Prediction</a>
+<div class="rightSection">
+<a class="selected links" href="h">Home</a>
+<a class="links" href="#">Contact Us</a>
+<a class="links" href="#">About Us</a>
+<a class="links" href="#">More Info</a>
+<a class="links" href="#">Donate</a>
+</div>
+</nav>
+</body>
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+</html>
+    """,
+    height=80,
+)
+
+
+
+
 
 
 # def local_css(file_name):
