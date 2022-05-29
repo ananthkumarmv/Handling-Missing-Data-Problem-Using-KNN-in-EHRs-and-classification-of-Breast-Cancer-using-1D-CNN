@@ -13,13 +13,13 @@ from tensorflow import keras
 import pandas as pd
 
 # st.set_page_config(page_title="Breast Cancer Prediction", layout="wide")
-st.set_page_config(page_title="Breast Cancer Prediction")
+st.set_page_config(page_title="Breast Cancer Tumor Prediction")
 
 hide_st_style = """
             <style>
-            #MainMenu {visibility: hidden;}
+
             footer {visibility: hidden;}
-            header {visibility: hidden;}
+
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -36,79 +36,235 @@ components.html(
     """
     <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {box-sizing: border-box;}
-nav {
-overflow: hidden;
-background-color: #330b7c;
-padding: 10px;
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Basic Header</title>
+
+	<link rel="stylesheet" href="assets/demo.css">
+	<link rel="stylesheet" href="assets/header-fixed.css">
+	<link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+    <style>
+    .header-fixed {
+	background-color:#292c2f;
+	box-shadow:0 1px 1px #ccc;
+	padding: 20px 40px;
+	height: 80px;
+	color: #ffffff;
+	box-sizing: border-box;
+	top:-100px;
+
+	-webkit-transition:top 0.3s;
+	transition:top 0.3s;
 }
-.links {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-font-weight: bold;
-float: left;
-color:white;
-text-align: center;
-padding: 12px;
-text-decoration: none;
-font-size: 18px;
-line-height: 25px;
-border-radius: 4px;
+
+.header-fixed .header-limiter {
+	max-width: 1200px;
+	text-align: center;
+	margin: 0 auto;
 }
-nav .logo {
-font-size: 25px;
-font-weight: bold;
+
+/*	The header placeholder. It is displayed when the header is fixed to the top of the
+	browser window, in order to prevent the content of the page from jumping up. */
+
+.header-fixed-placeholder{
+	height: 80px;
+	display: none;
 }
-nav .links:hover {
-background-color: rgb(214, 238, 77);
-color: rgb(42, 10, 94);
+
+/* Logo */
+
+.header-fixed .header-limiter h1 {
+	float: left;
+	font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+	line-height: 40px;
+	margin: 0;
 }
-nav .selected {
-background-color: dodgerblue;
-color: white;
+
+.header-fixed .header-limiter h1 span {
+	color: #5383d3;
 }
-.rightSection {
-float: right;
+
+/* The navigation links */
+
+.header-fixed .header-limiter a {
+	color: #ffffff;
+	text-decoration: none;
 }
-@media screen and (max-width: 870px) {
-nav .links {
-float: none;
-display: block;
-text-align: left;
+
+.header-fixed .header-limiter nav {
+	font:16px Arial, Helvetica, sans-serif;
+	line-height: 40px;
+	float: right;
 }
-.rightSection {
-float: none;
+
+.header-fixed .header-limiter nav a{
+	display: inline-block;
+	padding: 0 5px;
+	text-decoration:none;
+	color: #ffffff;
+	opacity: 0.9;
 }
+
+.header-fixed .header-limiter nav a:hover{
+	opacity: 1;
 }
-</style>
+
+.header-fixed .header-limiter nav a.selected {
+	color: #608bd2;
+	pointer-events: none;
+	opacity: 1;
+}
+
+/* Fixed version of the header */
+
+body.fixed .header-fixed {
+	padding: 10px 40px;
+	height: 50px;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+body.fixed .header-fixed-placeholder {
+	display: block;
+}
+
+body.fixed .header-fixed .header-limiter h1 {
+	font-size: 24px;
+	line-height: 30px;
+}
+
+body.fixed .header-fixed .header-limiter nav {
+	line-height: 28px;
+	font-size: 13px;
+}
+
+
+/* Making the header responsive */
+
+@media all and (max-width: 600px) {
+
+	.header-fixed {
+		padding: 20px 0;
+		height: 75px;
+	}
+
+	.header-fixed .header-limiter h1 {
+		float: none;
+		margin: -8px 0 10px;
+		text-align: center;
+		font-size: 24px;
+		line-height: 1;
+	}
+
+	.header-fixed .header-limiter nav {
+		line-height: 1;
+		float:none;
+	}
+
+	.header-fixed .header-limiter nav a {
+		font-size: 13px;
+	}
+
+	body.fixed .header-fixed {
+		display: none;
+	}
+
+}
+
+/*
+	 We are clearing the body's margin and padding, so that the header fits properly.
+	 We are also adding a height to demonstrate the scrolling behavior. You can remove
+	 these styles.
+ */
+
+body {
+	margin: 0;
+	padding: 0;
+	height: 1500px;
+}
+    </style>
+
 </head>
+
 <body>
-<nav>
-<a class="links logo" href="Image/cancer.png">Breast Cancer Tumor Prediction</a>
-<div class="rightSection">
-<a class="selected links" href="h">Home</a>
-<a class="links" href="#">Contact Us</a>
-<a class="links" href="#">About Us</a>
-<a class="links" href="#">More Info</a>
-<a class="links" href="#">Donate</a>
-</div>
-</nav>
+
+<header class="header-fixed">
+
+	<div class="header-limiter">
+
+		<h1><a href="#">Breast Cancer Tumor <span>Prediction</span></a></h1>
+
+		<nav>
+			<a href="" class="selected">Home</a>
+			<a href="">About</a>
+			<a href="">News</a>
+			<a href="">Donate</a>
+			<a href="">Contact</a>
+		</nav>
+
+	</div>
+
+</header>
+
+<!-- You need this element to prevent the content of the page from jumping up -->
+<div class="header-fixed-placeholder"></div>
+
+<!-- The content of your page would go here. -->
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+
+	$(document).ready(function(){
+
+		var showHeaderAt = 150;
+
+		var win = $(window),
+				body = $('body');
+
+		// Show the fixed header only on larger screen devices
+
+		if(win.width() > 400){
+
+			// When we scroll more than 150px down, we set the
+			// "fixed" class on the body element.
+
+			win.on('scroll', function(e){
+
+				if(win.scrollTop() > showHeaderAt) {
+					body.addClass('fixed');
+				}
+				else {
+					body.removeClass('fixed');
+				}
+			});
+
+		}
+
+	});
+
+</script>
+
+
+<!-- Demo ads. Please ignore and remove. -->
+<script src="http://cdn.tutorialzine.com/misc/enhance/v3.js" async></script>
+
+
 </body>
-<!-- Footer -->
-<footer class="page-footer font-small blue">
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="/"> MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
 
 </html>
+
     """,
     height=80,
 )
