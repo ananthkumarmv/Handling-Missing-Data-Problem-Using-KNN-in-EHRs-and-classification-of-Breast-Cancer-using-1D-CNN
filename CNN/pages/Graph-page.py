@@ -1,16 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May  1 15:08:52 2022
-
-@author: Unbeknownstguy
-"""
-
-import numpy as np
 import streamlit as st
 import streamlit.components.v1 as components
-from sklearn.preprocessing import StandardScaler
-from tensorflow import keras
-import pandas as pd
+from PIL import Image
 
 # st.set_page_config(page_title="Breast Cancer Prediction", layout="wide")
 st.set_page_config(page_title="Breast Cancer Tumor Prediction")
@@ -300,197 +290,78 @@ body {
 # c4.button("Donate")
 # c5.button("Contact")
 
+def printGraph():
 
+    # cancer_dataset = pd.read_csv('C:/Users/Unbeknownstguy/Documents/GitHub/Projects/Machine_Learning/Handling-Missing-Data-Problem-Using-KNN-in-EHRs-for-Cancer-Prediction/Dataset/data.csv')
 
+    # cancer_dataset = cancer_dataset.dropna(thresh=cancer_dataset.shape[1]-9, axis=0)
 
-#loading saved model
-loaded_model = keras.models.load_model('C:/Users/Unbeknownstguy/Documents/GitHub/Projects/Machine_Learning/Handling-Missing-Data-Problem-Using-KNN-in-EHRs-for-Cancer-Prediction/3_CNN/model.h5')
+    # cancer_dataset.replace({'diagnosis': {'B':0, 'M':1}}, inplace=True)
 
-def Prediction(input_data):
+    # cancer_dataset = cancer_dataset.drop(columns='id', axis=1)
+
+    # cancer_dataset = cancer_dataset.drop(columns='Unnamed: 32', axis=1)
+
+    # X = cancer_dataset.drop(columns='diagnosis', axis=1)
+    # Y = cancer_dataset['diagnosis']
+
+    # columns = ['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean', 'concavity_mean', 'radius_se', 'perimeter_se', 'area_se', 'radius_worst', 'texture_worst', 'perimeter_worst', 'area_worst', 'compactness_worst', 'concavity_worst', 'concave points_worst', 'concave points_mean']
+
+    # X_new = pd.DataFrame(cancer_dataset, columns=columns)
+
+    # x_train, x_test, y_train, y_test = train_test_split(X_new, Y, test_size = 0.2, random_state = 3, stratify=Y)
+
+    # scaler = StandardScaler()
+    # x_train = scaler.fit_transform(x_train)
+    # x_test = scaler.transform(x_test)
+
+    # x_train = x_train.reshape(455, 16, 1)
+    # x_test = x_test.reshape(114, 16, 1)
+
+    # epochs = 100
+    # model = Sequential()
+    # model.add(Conv1D(filters=16, kernel_size=2, activation='relu', input_shape=(16,1)))
+    # # model.add(BatchNormalization())
+    # # model.add(Dropout(0.2))
+
+    # model.add(Conv1D(filters=16, kernel_size=2, activation='relu',))
+    # model.add(Conv1D(filters=16, kernel_size=2, activation='relu',))
+    # model.add(Conv1D(filters=16, kernel_size=2, activation='relu',))
+    # # model.add(BatchNormalization())
+    # # model.add(Dropout(0.5))
+
+    # model.add(Flatten())
+    # model.add(Dense(32, activation='relu'))
+    # model.add(Dropout(0.5))
+
+    # # output layer
+    # model.add(Dense(1, activation='sigmoid'))
+
+    # model.compile(optimizer=Adam(learning_rate=0.01), loss = 'binary_crossentropy', metrics=['accuracy'])
+
+    # history = model.fit(x_train, y_train, 
+    #                 epochs=epochs, 
+    #                 #callbacks=callbacks_list, 
+    #                 validation_data = (x_test, y_test),
+    #                 verbose=1)
+
+    image1 = Image.open('C:/Users/Unbeknownstguy/Documents/GitHub/Projects/Machine_Learning/Handling-Missing-Data-Problem-Using-KNN-in-EHRs-for-Cancer-Prediction/CNN/Image/Accuracy-graph.png')
+
+    st.image(image1, caption='Accuracy Graph Of the Model.', width=700, channels="RGB")
+
+    image2 = Image.open('C:/Users/Unbeknownstguy/Documents/GitHub/Projects/Machine_Learning/Handling-Missing-Data-Problem-Using-KNN-in-EHRs-for-Cancer-Prediction/CNN/Image/Model-Loss-Graph.png')
+
+    st.image(image2, caption='Loss Graph Of the Model.', width=700, channels="RGB")
+
     
-    cancer_dataset = pd.read_csv('C:/Users/Unbeknownstguy/Documents/GitHub/Projects/Machine_Learning/Handling-Missing-Data-Problem-Using-KNN-in-EHRs-for-Cancer-Prediction/Dataset/data.csv')
-    
-    columns = ['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean', 'concavity_mean', 'radius_se', 'perimeter_se', 'area_se', 'radius_worst', 'texture_worst', 'perimeter_worst', 'area_worst', 'compactness_worst', 'concavity_worst']
-    
-    X_new = pd.DataFrame(cancer_dataset, columns=columns)
-    
-    scaler = StandardScaler()
-    
-    scaler.fit_transform(X_new)
-    
-    input_data_as_numpy_array = np.asarray(input_data)
 
-    input_data_reshape = input_data_as_numpy_array.reshape(1, -1)
 
-    std_data = scaler.transform(input_data_reshape)
 
-    prediction = loaded_model.predict(std_data)
-
-    if prediction[0]<=0.5:
-        return "Benign"
-    else:
-        return "Malignant"
-        
-        
-        
 def main():
     
-    
-    col1, col2 = st.columns(2)
-
-    radius_mean = col1.text_input('Radius Mean')
-    try:
-        if 6.9810 <= float(radius_mean) <= 28.1100:
-            pass
-        else:
-            col1.error("Not in range")
-    except ValueError:
-        pass
+    printGraph()
 
 
-    texture_mean = col1.text_input('Texture Mean')
-    try:
-        if 9.7100 <= float(texture_mean) <= 39.2800:
-            pass
-        else:
-            col1.error("Not in range")
-    except ValueError:
-        pass
 
-
-    perimeter_mean = col1.text_input('Perimeter Mean')
-    try:
-        if 43.7900 <= float(perimeter_mean) <= 188.5000:
-            pass
-        else:
-            col1.error("Not in range")
-    except ValueError:
-        pass
-
-
-    area_mean = col1.text_input('Area Mean')
-    try:
-        if 143.5000 <= float(area_mean) <= 2501.0000:
-            pass
-        else:
-            col1.error("Not in range")
-    except ValueError:
-        pass
-
-
-    concavity_mean = col1.text_input('Concavity Mean')
-    try:
-        if 0.0000 <= float(concavity_mean) <= 0.4268:
-            pass
-        else:
-            col1.error("Not in range")
-    except ValueError:
-        pass
-
-
-    radius_se = col1.text_input('Radius Se')
-    try:
-        if 0.1115 <= float(radius_se) <= 2.8730:
-            pass
-        else:
-            col1.error("Not in range")
-    except ValueError:
-        pass
-
-
-    perimeter_se = col1.text_input('Perimeter Se')
-    try:
-        if 0.7570 <= float(perimeter_se) <= 21.9800:
-            pass
-        else:
-            col1.error("Not in range")
-    except ValueError:
-        pass
-
-
-    area_se = col2.text_input('Area Se')
-    try:
-        if 6.8020 <= float(area_se) <= 542.2000:
-            pass
-        else:
-            col2.error("Not in range")
-    except ValueError:
-        pass
-
-
-    radius_worst = col2.text_input('Radius Worst')
-    try:
-        if 7.9300 <= float(radius_worst) <= 36.0400:
-            pass
-        else:
-            col2.error("Not in range")
-    except ValueError:
-        pass
-
-
-    texture_worst = col2.text_input('Texture Worts')
-    try:
-        if 12.0200 <= float(texture_worst) <= 49.5400:
-            pass
-        else:
-            col2.error("Not in range")
-    except ValueError:
-        pass
-
-
-    perimeter_worst = col2.text_input('Perimeter worst')
-    try:
-        if 50.4100 <= float(perimeter_worst) <= 251.2000:
-            pass
-        else:
-            col2.error("Not in range")
-    except ValueError:
-        pass
-
-
-    area_worst = col2.text_input('Area Wrost')
-    try:
-        if 185.2000 <= float(area_worst) <= 4254.0000:
-            pass
-        else:
-            col2.error("Not in range")
-    except ValueError:
-        pass
-
-
-    compactness_worst = col2.text_input('Compactness Wrost')
-    try:
-        if 0.0273 <= float(compactness_worst) <= 1.0580:
-            pass
-        else:
-            col2.error("Not in range")
-    except ValueError:
-        pass
-
-
-    concavity_worst = col2.text_input('Concavity Worst')
-    try:
-        if 0.0000 <= float(concavity_worst) <= 1.2520:
-            pass
-        else:
-            col2.error("Not in range")
-    except ValueError:
-        pass
-    
-    
-    # code for prediction
-    diagnosis = ''
-    
-    try:
-        if st.button('Result'):
-            diagnosis = Prediction([radius_mean, texture_mean, perimeter_mean, area_mean, concavity_mean, radius_se, perimeter_se, area_se, radius_worst, texture_worst, perimeter_worst, area_worst, compactness_worst, concavity_worst])
-                    
-        st.success(diagnosis)
-    
-    except ValueError:
-        st.error("Cells Should not be empty")
-    
-    
 if __name__ == "__main__":
     main()
-
